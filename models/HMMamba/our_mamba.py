@@ -93,30 +93,30 @@ class MSAA_SKM(nn.Module):
         return self.out(x_sk)
 
 
-class MSAA_MCSM(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super(MSAA_MCSM, self).__init__()
-        # self.Linear = nn.Linear(in_channels,out_channels,bias=False)
-        self.mcsm = MCSM(in_channels, out_channels)
+# class MSAA_MCSM(nn.Module):
+#     def __init__(self, in_channels, out_channels):
+#         super(MSAA_MCSM, self).__init__()
+#         # self.Linear = nn.Linear(in_channels,out_channels,bias=False)
+#         self.mcsm = MCSM(in_channels, out_channels)
+#
+#     def forward(self, x1, x2, x4, last=False):
+#         x_fused = torch.cat([x1, x2, x4], dim=1)
+#         x_mcsm = self.mcsm(x_fused)
+#
+#         return x_mcsm
 
-    def forward(self, x1, x2, x4, last=False):
-        x_fused = torch.cat([x1, x2, x4], dim=1)
-        x_mcsm = self.mcsm(x_fused)
 
-        return x_mcsm
-
-
-class CON_EACAM(nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super(CON_EACAM, self).__init__()
-        self.Linear = nn.Linear(in_channels, out_channels, bias=False)
-        # self.eacam1 = EMCAM(in_channels,out_channels)
-        self.eacam = EMCAM(in_channels, in_channels)
-
-    def forward(self, x, last=False):
-        x_eacam = self.Linear(self.eacam(x).permute(0, 2, 3, 1).contiguous()).permute(0, 3, 1, 2).contiguous()
-
-        return x_eacam
+# class CON_EACAM(nn.Module):
+#     def __init__(self, in_channels, out_channels):
+#         super(CON_EACAM, self).__init__()
+#         self.Linear = nn.Linear(in_channels, out_channels, bias=False)
+#         # self.eacam1 = EMCAM(in_channels,out_channels)
+#         self.eacam = EMCAM(in_channels, in_channels)
+#
+#     def forward(self, x, last=False):
+#         x_eacam = self.Linear(self.eacam(x).permute(0, 2, 3, 1).contiguous()).permute(0, 3, 1, 2).contiguous()
+#
+#         return x_eacam
 
 
 class CON_MCSM(nn.Module):
